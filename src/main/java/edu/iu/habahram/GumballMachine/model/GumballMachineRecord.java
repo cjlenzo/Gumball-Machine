@@ -32,7 +32,7 @@ public final class GumballMachineRecord {
         String line = String.format("%1s,%2s,%3s",
                 machineId,
                 getState(),
-                getCount());
+                Integer.toString(getCount()).trim());
         return line;
     }
 
@@ -41,7 +41,7 @@ public final class GumballMachineRecord {
         GumballMachineRecord gumballMachineRecord = new
                 GumballMachineRecord(tokens[0],
                 tokens[1],
-                Integer.valueOf(tokens[2]));
+                Integer.valueOf(tokens[2].trim()));
         return gumballMachineRecord;
     }
 

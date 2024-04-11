@@ -1,6 +1,7 @@
 package edu.iu.habahram.GumballMachine.controllers;
 
 import edu.iu.habahram.GumballMachine.model.GumballMachineRecord;
+import edu.iu.habahram.GumballMachine.model.GumballMachineState;
 import edu.iu.habahram.GumballMachine.model.TransitionRequest;
 import edu.iu.habahram.GumballMachine.model.TransitionResult;
 import edu.iu.habahram.GumballMachine.repository.IGumballRepository;
@@ -41,6 +42,36 @@ public class GumballMachineController {
     public TransitionResult insertQuarter(@RequestBody TransitionRequest transitionRequest) {
         try {
             return gumballService.insertQuarter(transitionRequest.id());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PutMapping("/eject-quarter")
+    public TransitionResult ejectQuarter(@RequestBody TransitionRequest transitionRequest) {
+        try {
+            return gumballService.ejectQuarter(transitionRequest.id());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PutMapping("/turn-crank")
+    public TransitionResult turnCrank(@RequestBody TransitionRequest transitionRequest) {
+        try {
+            return gumballService.turnCrank(transitionRequest.id());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PutMapping("/manual-no-quarter")
+    public boolean manualNoQuarter(@RequestBody TransitionRequest transitionRequest) {
+        try {
+            GumballMachineRecord record = gumballService.findById(transitionRequest.id());
+            record.setState(GumballMachineState.NO_QUARTER.name());
+            gumballService.save(record);
+            return true;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
