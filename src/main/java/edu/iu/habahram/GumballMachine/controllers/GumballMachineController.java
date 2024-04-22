@@ -76,4 +76,14 @@ public class GumballMachineController {
             throw new RuntimeException(e);
         }
     }
+
+    @PutMapping("/refill")
+    public TransitionResult refill(@RequestBody TransitionRequest transitionRequest) {
+        try {
+            System.out.println("Refill request for Machine " + transitionRequest.id() + " with count " + transitionRequest.count());
+            return gumballService.refill(transitionRequest.id(), transitionRequest.count());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
